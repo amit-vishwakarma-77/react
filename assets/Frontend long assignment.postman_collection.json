@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "33f29bb5-b809-4183-a4a8-0f5636858bdf",
+		"name": "Frontend long assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"name\": \"Energy bill payment\",\n        \"subject\": \"Pay bill for May 2022\",\n        \"status\": \"SENT\",\n        \"template\": {\n            \"name\": \"Energy bill template\"\n        },\n        \"userIds\": [\n            1,\n            2\n        ]\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/users"
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"Rohit\",\n    \"last_name\": \"Sharma\",\n    \"email\": \"rohit.sharma@gmail.com\",\n    \"password\": \"Rohit.Sharma12\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/users"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all contacts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/contacts"
+			},
+			"response": []
+		},
+		{
+			"name": "Get a specific contact",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/contacts/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new contact",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"userId\": 2,\n      \"first_name\": \"Angelina\",\n      \"last_name\": \"Smith\",\n      \"email\": \"msmith@codingthesmartway.com\",\n      \"gender\": \"male\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/contacts"
+			},
+			"response": []
+		},
+		{
+			"name": "Edit an existing contact",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 2,\n    \"first_name\": \"Angelina\",\n    \"last_name\": \"Smith\",\n    \"gender\": \"female\",\n    \"email\": \"rohit@gmail.com\",\n    \"address\": \"indonesia\",\n    \"phone\": \"7645433456\",\n    \"city\": \"Jakarta\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/contacts/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an existing contact",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3000/contacts/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all campaigns",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n        \"name\": \"Energy bill payment\",\n        \"subject\": \"Pay bill for May 2022\",\n        \"status\": \"SENT\",\n        \"template\": {\n            \"name\": \"Energy bill template\"\n        },\n        \"userIds\": [\n            1,\n            2\n        ]\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/campaigns"
+			},
+			"response": []
+		},
+		{
+			"name": "Get a specific campaign",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/campaigns/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Get user specific campaigns",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/users/1?_embed=campaigns",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"1"
+					],
+					"query": [
+						{
+							"key": "_embed",
+							"value": "campaigns"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new campaign",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"SENT\",\n    \"name\": \"You are fabolous 1\",\n    \"subject\": \"You are fabolous 1\",\n    \"template\": {\n        \"name\": \"Musical event template 1\"\n    },\n    \"userId\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/campaigns"
+			},
+			"response": []
+		},
+		{
+			"name": "Edit contact",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"address\": \"misopotemia\",\n    \"city\": \"maxico\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/contacts/1"
+			},
+			"response": []
+		}
+	]
+}

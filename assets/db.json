@@ -1,0 +1,105 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "first_name": "Sebastian",
+      "last_name": "Eschweiler",
+      "email": "sebastian@gmail.com",
+      "password": "sebastian@gmail.com"
+    },
+    {
+      "id": 2,
+      "first_name": "Steve",
+      "last_name": "Palmer",
+      "email": "steve@gmail.com",
+      "password": "steve@gmail.com"
+    },
+    {
+      "first_name": "amit",
+      "last_name": "vish",
+      "email": "a@gmail.com",
+      "password": "Amit@1234",
+      "id": 3
+    }
+  ],
+  "contacts": [
+    {
+      "id": 4,
+      "userId": 1,
+      "first_name": "Cesar",
+      "last_name": "Godria",
+      "gender": "male",
+      "email": "cg@gmail.com",
+      "address": "Malasiya",
+      "phone": "4599909878",
+      "city": "Miri"
+    },
+    {
+      "id": 5,
+      "userId": 2,
+      "first_name": "Angelinads",
+      "last_name": "Smithx",
+      "gender": "female",
+      "email": "angelina@gmail.comcvcx",
+      "address": "indonesia",
+      "phone": "7645433456",
+      "city": "Jakarta"
+    },
+    {
+      "first_name": "dfkfgnfd",
+      "last_name": "fdlgjkfd",
+      "email": "fgkjfglkf@lkjdkgb",
+      "id": 6,
+      "gender": "male"
+    },
+    {
+      "first_name": "sfsdfds",
+      "last_name": "dsfdsf",
+      "email": "dsfdsf@dfgd",
+      "id": 7,
+      "gender": "female"
+    }
+  ],
+  "campaigns": [
+    {
+      "id": 1,
+      "name": "Energy bill May 2022",
+      "subject": "Pay Energy Bill for May 2022",
+      "status": "pending",
+      "template": {
+        "name": "EnergyBillTemplate"
+      },
+      "template_vars": {
+        "corporation_name": "Green Energy Corporation",
+        "month": "May",
+        "Year": "2022",
+        "bill_amount": "2000"
+      },
+      "contacts": [
+        1,
+        3,
+        4
+      ],
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "name": "Certificate distribution October 2022",
+      "subject": "Certificate distribution in October 2022 TownHall",
+      "status": "pending",
+      "template_vars": {
+        "hours": "40",
+        "issuer": "UIE studio india",
+        "course_name": "Nodejs Reskilling"
+      },
+      "template": {
+        "name": "CertificateTemplate"
+      },
+      "contacts": [
+        1,
+        4
+      ],
+      "userId": 1
+    }
+  ]
+}
