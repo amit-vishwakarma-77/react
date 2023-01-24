@@ -34,12 +34,12 @@ export interface Template {
   name: string
 }
 
-export interface TemplateVars {
-  corporation_name: string
-  month: string
-  Year: string
-  bill_amount: string
-}
+// export interface TemplateVars {
+//   corporation_name: string
+//   month: string
+//   Year: string
+//   bill_amount: string
+// }
 ///////////////IFormInput
 export interface IFormInput {
   email: string;
@@ -73,17 +73,21 @@ export enum contactsModalType{
 ///////////////////CAMPAIGNS/////////////////
 
 export interface CampaignForm{
-  name: string,
-  subject: string,
-  status: string,
-  hours: number,
-  issuer: string,
-  course_name: string,
-  template: string,
-  contacts: any,
-  userId: number,
+  id:number;
+  name: string;
+  subject: string;
+  status: string;
+  hours: number;
+  issuer: string;
+  course_name: string;
+  template: string;
+  contact?: Contacts;
+  userId: number;
+  billAmount:number | string;
+  contacts:any;
+  courseName:string;
 }
-export interface Campaigns {
+export interface Campaign {
   id: number
   name: string
   subject: string
@@ -95,7 +99,7 @@ export interface Campaigns {
 }
 
 export interface TemplateVars {
-  hours: string
+  hours: number
   issuer: string
   course_name: string
 }

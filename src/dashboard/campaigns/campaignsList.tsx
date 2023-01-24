@@ -1,56 +1,56 @@
-import Box from "@mui/material/Box";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
-import { useState, useEffect } from "react";
-import { useContacts } from "../dashboard";
-import { Campaigns } from "../../interfaces";
-import { Button } from "@mui/material";
-import AddCampaignForm from "./modals/addCampaignForm";
+import Box from '@mui/material/Box';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
+import { useState, useEffect } from 'react';
+import { useContacts } from '../dashboard';
+import { Campaigns } from '../../interfaces';
+import { Button } from '@mui/material';
+import AddCampaignForm from './modals/addCampaignForm';
 
 const getColumns = () => {
   return [
     {
-      field: "id",
-      headerName: "Id",
-      type: "number",
+      field: 'id',
+      headerName: 'Id',
+      type: 'number',
       width: 20,
     },
     {
-      field: "campaignName",
-      headerName: "Campaign Name",
+      field: 'campaignName',
+      headerName: 'Campaign Name',
       width: 300,
     },
     {
-      field: "subject",
-      headerName: "Subject",
+      field: 'subject',
+      headerName: 'Subject',
       width: 150,
     },
     {
-      field: "hours",
-      headerName: "Hours",
-      type: "number",
+      field: 'hours',
+      headerName: 'Hours',
+      type: 'number',
       width: 70,
     },
     {
-      field: "createdBy",
-      headerName: "Created By",
+      field: 'createdBy',
+      headerName: 'Created By',
       width: 160,
     },
     {
-      field: "status",
-      headerName: "Status",
+      field: 'status',
+      headerName: 'Status',
       width: 160,
     },
     {
-      field: "template",
-      headerName: "Template",
+      field: 'template',
+      headerName: 'Template',
       width: 160,
     },
     {
-      field: "actions",
-      headerName: "Actions",
+      field: 'actions',
+      headerName: 'Actions',
       width: 250,
       renderCell: (params: any) => {
         return (
@@ -61,7 +61,7 @@ const getColumns = () => {
                 // deleteContactClicked(params.row);
               }}
             >
-              <Button color="primary" variant="outlined">
+              <Button color='primary' variant='outlined'>
                 <DirectionsRunIcon />
               </Button>
             </div>
@@ -72,7 +72,7 @@ const getColumns = () => {
                 // console.log("edit clicked", params.row);
               }}
             >
-              <Button color="success" variant="outlined">
+              <Button color='success' variant='outlined'>
                 {/* onClick={editContact} */}
                 <EditIcon />
               </Button>
@@ -83,7 +83,7 @@ const getColumns = () => {
                 // deleteContactClicked(params.row);
               }}
             >
-              <Button color="error" variant="outlined">
+              <Button color='error' variant='outlined'>
                 <DeleteForeverIcon />
               </Button>
             </div>
@@ -109,16 +109,16 @@ const getRows = (campaigns: Campaigns[]) => {
 export default function CampaignsList(props: any) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const { allCampaigns } = useContacts();
+  const { allCampaigns, allContacts, updateCampaign } = useContacts();
   const columns: GridColDef[] = getColumns();
   const rows = getRows(allCampaigns);
 
   console.info(allCampaigns);
 
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
+    <Box sx={{ height: 400, width: '100%' }}>
       <h1>Campaigns</h1>
-      <Button color="success" variant="outlined" onClick={handleOpen}>
+      <Button color='success' variant='outlined' onClick={handleOpen}>
         Add New Campaign
       </Button>
       <br />
@@ -130,7 +130,11 @@ export default function CampaignsList(props: any) {
         rowsPerPageOptions={[5]}
         disableSelectionOnClick
       />
-      <AddCampaignForm state={{ setOpen, open }} />
+      <AddCampaignForm
+        state={{ setOpen, open }}
+        contacts={allContacts}
+        updateCampaign={updateCampaign}
+      />
     </Box>
   );
 }

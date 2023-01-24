@@ -1,24 +1,25 @@
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import { IsUserLoggedIn } from "../axios/auth/validateUserSession";
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import { IsUserLoggedIn } from '../axios/auth/validateUserSession';
 
-import axios from "axios";
-import * as http from "../axios";
-import { Button, Grid } from "@mui/material";
-import { Outlet, useOutletContext, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { Contacts, Campaigns } from "../interfaces";
+import axios from 'axios';
+import * as http from '../axios';
+import { Button, Grid } from '@mui/material';
+import { Outlet, useOutletContext, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Contacts, Campaigns, Campaign } from '../interfaces';
 
 type ContextType = {
   allContacts: Contacts[];
   updateContact: any;
   deleteContact: any;
   allCampaigns: Campaigns[];
+  updateCampaign: any;
 };
 function Dashboard() {
   const email = IsUserLoggedIn();
-  console.log("Dashboard loaded");
+  console.log('Dashboard loaded');
 
   const [allContacts, setContacts] = useState<Contacts[]>([]);
   const [allCampaigns, setAllCampaigns] = useState<Campaigns[]>([]);
@@ -59,7 +60,30 @@ function Dashboard() {
       });
     }
   }
-
+  function updateCampaign(id: number, data: Campaign) {
+    if (id > 0) {
+      http
+        .updateCampaign(id, data)
+        .then((response) => {
+          const newCont = allCampaigns.map((campaign) => {
+            if (campaign.id === id) {
+              return { ...campaign, ...response.data };
+            }
+            return campaign;
+          });
+          setAllCampaigns(newCont);
+        })
+        .catch((err) => console.error(err));
+    } else {
+      http.getCampaign(data.id).then((res) => {
+        if (res.data.length === 0) {
+          http.addNewCampaign(data).then((response) => {
+            setAllCampaigns([...allCampaigns, { ...response.data }]);
+          });
+        }
+      });
+    }
+  }
   function deleteContact(id: number) {
     http
       .deleteContact(id)
@@ -87,8 +111,8 @@ function Dashboard() {
                 </Grid>
               </CardContent>
               <CardActions>
-                <Link to="/dashboard/contacts">
-                  <Button size="small">View</Button>
+                <Link to='/dashboard/contacts'>
+                  <Button size='small'>View</Button>
                 </Link>
               </CardActions>
             </Card>
@@ -106,7 +130,7 @@ function Dashboard() {
                 </Grid>
               </CardContent>
               <CardActions>
-                <Button size="small">View</Button>
+                <Button size='small'>View</Button>
               </CardActions>
             </Card>
           </Grid>
@@ -123,8 +147,8 @@ function Dashboard() {
                 </Grid>
               </CardContent>
               <CardActions>
-                <Link to="/dashboard/campaigns">
-                  <Button size="small">View</Button>
+                <Link to='/dashboard/campaigns'>
+                  <Button size='small'>View</Button>
                 </Link>
               </CardActions>
             </Card>
@@ -136,6 +160,7 @@ function Dashboard() {
             updateContact,
             deleteContact,
             allCampaigns,
+            updateCampaign,
           }}
         />
       </>

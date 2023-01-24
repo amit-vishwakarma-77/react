@@ -1,20 +1,23 @@
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { Button } from "@mui/material";
-import { useContacts } from "../dashboard";
-import { useState } from "react";
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { Button } from '@mui/material';
+import { useContacts } from '../dashboard';
+import { useState } from 'react';
 import {
-  Contacts as iterfaceContact,
+  Contacts as interfaceContact,
   contactsModalType,
-} from "../../interfaces";
-import UpdateContactDetailsModal from "./modals/updateContactsModal";
-import ConfirmationModal from "./modals/confirmationModal";
+} from '../../interfaces';
+import UpdateContactDetailsModal from './modals/updateContactsModal';
+import ConfirmationModal from './modals/confirmationModal';
 
 function Contacts() {
   const [open, setOpen] = useState(false);
   const [modalType, setModalType] = useState(contactsModalType.add);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(
+    {} as interfaceContact | null
+  );
 
   const handleOpen = () => {
     setSelectedUser(null);
@@ -22,43 +25,41 @@ function Contacts() {
   };
   const addNewContact = () => {
     setModalType(contactsModalType.add);
+    setSelectedUser({} as interfaceContact);
     setOpen(true);
   };
   const editContact = () => {
     setModalType(contactsModalType.update);
     setOpen(true);
   };
-  const handleClose = () => setOpen(false);
+  // const handleClose = () => setOpen(false);
   const { allContacts, updateContact, deleteContact } = useContacts();
-  const deleteContactClicked = (user: iterfaceContact) => {
+  const deleteContactClicked = (user: interfaceContact) => {
     setDeleteModalOpen(true);
     setSelectedUser(user);
   };
-  const [selectedUser, setSelectedUser] = useState(
-    {} as iterfaceContact | null
-  );
 
   const columns = getColumns(handleOpen);
 
   function getColumns(handleOpen: any) {
     const columns: GridColDef[] = [
-      { field: "id", headerName: "ID", width: 50 },
-      { field: "first_name", headerName: "First name", width: 130 },
-      { field: "last_name", headerName: "Last name", width: 130 },
+      { field: 'id', headerName: 'ID', width: 50 },
+      { field: 'first_name', headerName: 'First name', width: 130 },
+      { field: 'last_name', headerName: 'Last name', width: 130 },
       {
-        field: "email",
-        headerName: "Email Id",
-        type: "string",
+        field: 'email',
+        headerName: 'Email Id',
+        type: 'string',
         width: 220,
       },
       {
-        field: "gender",
-        headerName: "Gender",
+        field: 'gender',
+        headerName: 'Gender',
         width: 160,
       },
       {
-        field: "",
-        headerName: "Actions",
+        field: '',
+        headerName: 'Actions',
         width: 400,
         renderCell: (params) => {
           return (
@@ -67,10 +68,10 @@ function Contacts() {
                 onClick={(e) => {
                   e.stopPropagation();
                   setSelectedUser(params.row);
-                  console.log("edit clicked", params.row);
+                  console.log('edit clicked', params.row);
                 }}
               >
-                <Button color="success" variant="outlined">
+                <Button color='success' variant='outlined'>
                   <EditIcon onClick={editContact} />
                 </Button>
               </div>
@@ -80,7 +81,7 @@ function Contacts() {
                   deleteContactClicked(params.row);
                 }}
               >
-                <Button color="error" variant="outlined">
+                <Button color='error' variant='outlined'>
                   <DeleteForeverIcon />
                 </Button>
               </div>
@@ -94,12 +95,12 @@ function Contacts() {
   return (
     <>
       <h1>Contacts </h1>
-      <Button variant="outlined" onClick={addNewContact}>
+      <Button variant='outlined' onClick={addNewContact}>
         Add New Contact
       </Button>
       <br />
       <br />
-      <div style={{ height: 400, width: "100%" }}>
+      <div style={{ height: 400, width: '100%' }}>
         <DataGrid
           rows={allContacts}
           columns={columns}
