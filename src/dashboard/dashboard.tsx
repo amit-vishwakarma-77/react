@@ -1,12 +1,13 @@
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { IsUserLoggedIn } from '../axios/auth/validateUserSession';
 
 import axios from 'axios';
 import * as http from '../axios';
-import { Button, Grid } from '@mui/material';
-import { Outlet, useOutletContext, Link } from 'react-router-dom';
+import { Button, Grid, Typography } from '@mui/material';
+import { Outlet, useOutletContext, Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Contacts, Campaigns, Campaign } from '../interfaces';
 
@@ -15,11 +16,19 @@ type ContextType = {
   updateContact: any;
   deleteContact: any;
   allCampaigns: Campaigns[];
+  deleteCampaign: any;
   updateCampaign: any;
+  startCampaign: any;
 };
 function Dashboard() {
-  const email = IsUserLoggedIn();
-  console.log('Dashboard loaded');
+  const navigate = useNavigate();
+  IsUserLoggedIn();
+  function logOut() {
+    localStorage.removeItem('userLoggedIn');
+    navigate('/login');
+  }
+
+  // console.log('Dashboard loaded');
 
   const [allContacts, setContacts] = useState<Contacts[]>([]);
   const [allCampaigns, setAllCampaigns] = useState<Campaigns[]>([]);
@@ -93,78 +102,123 @@ function Dashboard() {
       })
       .catch((err) => console.error(err));
   }
+  function deleteCampaign(id: number) {
+    http
+      .deleteCampaign(id)
+      .then(() => {
+        const updatedCampaigns = allCampaigns.filter(
+          (campaign) => campaign.id !== id
+        );
+        setAllCampaigns(updatedCampaigns);
+      })
+      .catch((err) => console.error(err));
+  }
+  function startCampaign(id: number, campaign: Campaign) {
+    campaign.status = 'running';
+    http
+      .startCampaign(id, campaign)
+      .then((res) => {
+        const updatedCampaigns = allCampaigns.map((campaign) => {
+          if (campaign.id === id) {
+            return res.data;
+          }
+          return campaign;
+        });
+        setAllCampaigns(updatedCampaigns);
+      })
+      .catch((err) => console.error(err));
+  }
 
   return (
-    <div>
-      <>
-        <Grid container spacing={6}>
-          <Grid item xs={12} md={4}>
-            <Card>
-              <CardContent>
-                <Grid container spacing={1}>
-                  <Grid item md={4}>
-                    <h1>{allContacts.length}</h1>
-                  </Grid>
-                  <Grid item md={8}>
-                    <h1>Contacts</h1>
-                  </Grid>
+    <>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'baseline',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Typography variant='h4' component='h2'>
+          Email Champion
+        </Typography>
+        <Typography variant='h6'>
+          Hello Amit
+          <Button onClick={logOut}>
+            <LogoutIcon />
+          </Button>
+        </Typography>
+      </div>
+      <Grid container spacing={6}>
+        <Grid item xs={12} md={4}>
+          <Card>
+            <CardContent>
+              <Grid container spacing={1}>
+                <Grid item md={4}>
+                  <h1>{allContacts.length}</h1>
                 </Grid>
-              </CardContent>
-              <CardActions>
-                <Link to='/dashboard/contacts'>
-                  <Button size='small'>View</Button>
-                </Link>
-              </CardActions>
-            </Card>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Card>
-              <CardContent>
-                <Grid container spacing={1}>
-                  <Grid item md={4}>
-                    <h1>3</h1>
-                  </Grid>
-                  <Grid item md={8}>
-                    <h1>Templates</h1>
-                  </Grid>
+                <Grid item md={8}>
+                  <h1>Contacts</h1>
                 </Grid>
-              </CardContent>
-              <CardActions>
+              </Grid>
+            </CardContent>
+            <CardActions>
+              <Link to='/dashboard/contacts'>
                 <Button size='small'>View</Button>
-              </CardActions>
-            </Card>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Card>
-              <CardContent>
-                <Grid container spacing={1}>
-                  <Grid item md={4}>
-                    <h1>5</h1>
-                  </Grid>
-                  <Grid item md={8}>
-                    <h1>Campaigns</h1>
-                  </Grid>
-                </Grid>
-              </CardContent>
-              <CardActions>
-                <Link to='/dashboard/campaigns'>
-                  <Button size='small'>View</Button>
-                </Link>
-              </CardActions>
-            </Card>
-          </Grid>
+              </Link>
+            </CardActions>
+          </Card>
         </Grid>
-        <Outlet
-          context={{
-            allContacts,
-            updateContact,
-            deleteContact,
-            allCampaigns,
-            updateCampaign,
-          }}
-        />
-      </>
-    </div>
+        <Grid item xs={12} md={4}>
+          <Card>
+            <CardContent>
+              <Grid container spacing={1}>
+                <Grid item md={4}>
+                  <h1>3</h1>
+                </Grid>
+                <Grid item md={8}>
+                  <h1>Templates</h1>
+                </Grid>
+              </Grid>
+            </CardContent>
+            <CardActions>
+              <Link to={'/dashboard/templates'}>
+                <Button size='small'>View</Button>
+              </Link>
+            </CardActions>
+          </Card>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Card>
+            <CardContent>
+              <Grid container spacing={1}>
+                <Grid item md={4}>
+                  <h1>5</h1>
+                </Grid>
+                <Grid item md={8}>
+                  <h1>Campaigns</h1>
+                </Grid>
+              </Grid>
+            </CardContent>
+            <CardActions>
+              <Link to='/dashboard/campaigns'>
+                <Button size='small'>View</Button>
+              </Link>
+            </CardActions>
+          </Card>
+        </Grid>
+      </Grid>
+      <Outlet
+        context={{
+          allContacts,
+          updateContact,
+          deleteContact,
+          allCampaigns,
+          updateCampaign,
+          deleteCampaign,
+          startCampaign,
+        }}
+      />
+    </>
   );
 }
 export default Dashboard;

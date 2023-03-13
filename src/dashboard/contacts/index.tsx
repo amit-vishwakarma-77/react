@@ -43,7 +43,7 @@ function Contacts() {
 
   function getColumns(handleOpen: any) {
     const columns: GridColDef[] = [
-      { field: 'id', headerName: 'ID', width: 50 },
+      { field: 'id', headerName: 'ID', width: 10 },
       { field: 'first_name', headerName: 'First name', width: 130 },
       { field: 'last_name', headerName: 'Last name', width: 130 },
       {
@@ -60,7 +60,7 @@ function Contacts() {
       {
         field: '',
         headerName: 'Actions',
-        width: 400,
+        width: 200,
         renderCell: (params) => {
           return (
             <>
@@ -74,6 +74,7 @@ function Contacts() {
                 <Button color='success' variant='outlined'>
                   <EditIcon onClick={editContact} />
                 </Button>
+                &nbsp;&nbsp;
               </div>
               <div
                 onClick={(e) => {

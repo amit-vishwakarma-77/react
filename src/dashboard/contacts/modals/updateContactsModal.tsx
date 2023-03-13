@@ -1,4 +1,3 @@
-import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
@@ -105,12 +104,12 @@ export default function UpdateContactDetailsModal(props: any) {
                 >
                   <FormControlLabel
                     value='female'
-                    control={<Radio />}
+                    control={<Radio value='female' />}
                     label='Female'
                   />
                   <FormControlLabel
                     value='male'
-                    control={<Radio />}
+                    control={<Radio value='male' />}
                     label='Male'
                   />
                 </RadioGroup>

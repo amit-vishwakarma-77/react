@@ -1,10 +1,18 @@
+import './template3.css';
+import { Typography } from '@mui/material';
+
 function Template3(props: any) {
   return (
     <>
-      <h1>Template 3 </h1>
-      <h3>
-        Hello {props.name.first} {props.name.lastName}
-      </h3>
+      <div className='description3'>
+        <Typography variant='h5'>Musical</Typography>
+        <Typography variant='h5'>Night</Typography>
+        <Typography variant='h4'>New Year Night Party Invitation</Typography>
+        <br />
+        <Typography variant='h6'>
+          {props.name.toUpperCase()} {props.lastName.toUpperCase()}
+        </Typography>
+      </div>
     </>
   );
 }

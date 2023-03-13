@@ -1,0 +1,26 @@
+.template-container {
+  width: 500px;
+  background-color: #968b8b30;
+  padding: 20px;
+  margin-top: 20px;
+}
+.log-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffff;
+  padding: 10px 70px 10px 70px;
+  border-radius: 5px;
+}
+.log-div img {
+  height: 70px;
+}
+.subject {
+  padding: 10px 0;
+  text-align: center;
+}
+.description {
+  background: #ffff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}

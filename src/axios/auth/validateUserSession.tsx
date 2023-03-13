@@ -1,22 +1,22 @@
-import { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export function IsUserLoggedIn() {
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    // console.log(localStorage.getItem("userLoggedIn"));
-    if (!localStorage.getItem("userLoggedIn")) {
-      // console.log(localStorage.getItem("userLoggedIn"));
-      navigate("/login");
+    // console.log('location.pathname', location.pathname);
+    if (!localStorage.getItem('userLoggedIn')) {
+      navigate('/login');
     } else if (
-      location.pathname === "/login" ||
-      location.pathname === "/signup"
+      location.pathname === '/login' ||
+      location.pathname === '/signup' ||
+      location.pathname === '/'
     ) {
-      navigate("/dashboard");
+      navigate('/dashboard');
     }
   }, [navigate, location.pathname]);
 
-  return localStorage.getItem("userLoggedIn");
+  return localStorage.getItem('userLoggedIn');
 }

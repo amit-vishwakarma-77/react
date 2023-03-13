@@ -102,6 +102,7 @@ export interface TemplateVars {
   hours: number
   issuer: string
   course_name: string
+  billAmount?:number
 }
 
 export interface Template {

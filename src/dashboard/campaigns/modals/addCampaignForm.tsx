@@ -16,10 +16,14 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import { CampaignForm, Contacts } from '../../../interfaces';
+import { Campaign, CampaignForm, Contacts } from '../../../interfaces';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { translateCampaignFormValues } from '../../../helper/campaignFormHelper';
+import {
+  campaignFormDefaultValues,
+  translateCampaignFormValues,
+} from '../../../helper/campaignFormHelper';
+import { useEffect, useRef } from 'react';
 
 const schema = yup.object().shape({
   name: yup.string().required('Name is required.'),
@@ -58,33 +62,53 @@ const style = {
 
 export default function AddCampaignForm(props: any) {
   const contactsList = props.contacts;
+  const selectedCampaign = props.selectedCampaign ? props.selectedCampaign : 0;
+  const allCampaigns = props.allCampaigns;
+  let selectedCampaignData: any;
+
   const handleClose = () => props.state.setOpen(false);
-  // const updateCampaign = props.updateCampaign;
+  const updateCampaign = props.updateCampaign;
+
   const {
     control,
     handleSubmit,
     formState: { errors, isValid },
+    reset,
   } = useForm<CampaignForm>({
     resolver: yupResolver(schema),
     mode: 'onChange',
-    defaultValues: {
-      id: 0,
-      billAmount: '',
-      hours: 0,
-      courseName: '',
-      issuer: '',
-      name: '',
-      status: 'pending',
-      subject: '',
-      template: '',
-      userId: 0,
-      contacts: [],
-    },
+    defaultValues: campaignFormDefaultValues,
   });
+  useEffect(() => {
+    let campaign = allCampaigns.filter(
+      (campaign: any) => campaign.id === selectedCampaign
+    );
+    if (campaign.length > 0) {
+      campaign = campaign[0];
+      selectedCampaignData = campaign[0];
+      console.log('campaign', campaign);
+      const formValues = {
+        id: campaign.id,
+        billAmount: campaign.template_vars?.billAmount,
+        hours: campaign.template_vars?.hours,
+        courseName: campaign.template_vars?.course_name,
+        issuer: campaign.template_vars?.issuer,
+        name: campaign.name,
+        status: campaign.status,
+        subject: campaign.subject,
+        template: campaign.template?.name,
+        userId: campaign.userId,
+        contacts: campaign.contacts,
+      };
+      reset(formValues);
+    }
+  }, [selectedCampaign]);
   const onSubmit: SubmitHandler<CampaignForm> = (data) => {
     const campaign = translateCampaignFormValues(data);
-    console.log(campaign);
-    props.updateCampaign(0, campaign);
+    // console.log(campaign);
+    props.updateCampaign(selectedCampaign, campaign);
+    reset(campaignFormDefaultValues);
+    handleClose();
   };
   const onInvalid = (errors: any) => console.error(errors);
 
@@ -275,8 +299,12 @@ export default function AddCampaignForm(props: any) {
                                 <Checkbox
                                   {...field}
                                   size='small'
-                                  value={contact.userId}
+                                  value={contact.id}
+                                  checked={selectedCampaignData?.contacts.includes(
+                                    index
+                                  )}
                                   onChange={(event, checked) => {
+                                    console.log(event.target.value);
                                     if (checked) {
                                       field.onChange([
                                         ...field.value,

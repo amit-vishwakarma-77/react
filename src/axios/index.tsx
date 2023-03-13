@@ -45,3 +45,9 @@ export const addNewCampaign = (data: Campaign) => {
 export const updateCampaign = (id: number, data: Campaign) => {
   return axios.put(`${baseUrl}/campaigns/${id}`, data);
 };
+export const deleteCampaign = (id: number) => {
+  return axios.delete(`${baseUrl}/campaigns/${id}`);
+};
+export const startCampaign = (id: number, campaign: Campaign) => {
+  return axios.put(`${baseUrl}/campaigns/${id}`, campaign);
+};

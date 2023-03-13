@@ -15,7 +15,21 @@ export function translateCampaignFormValues(
       hours: formValues.hours,
       issuer: formValues.issuer,
       course_name: formValues.courseName,
+      billAmount: +formValues.billAmount,
     },
   };
   return newCampaign;
 }
+export const campaignFormDefaultValues = {
+  id: 0,
+  billAmount: '',
+  hours: 0,
+  courseName: '',
+  issuer: '',
+  name: '',
+  status: 'pending',
+  subject: '',
+  template: '',
+  userId: 0,
+  contacts: [],
+};
