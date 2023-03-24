@@ -7,9 +7,6 @@ import LoginForm from './forms/loginForm';
 import Dashboard from './dashboard/dashboard';
 import Contacts from './dashboard/contacts';
 import CampaignsList from './dashboard/campaigns/campaignsList';
-import Template1 from './templates/template1';
-import Template2 from './templates/template2';
-import Template3 from './templates/template3';
 import Templates from './templates/template';
 import SendEmail from './dashboard/send-emails';
 

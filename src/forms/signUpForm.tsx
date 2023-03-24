@@ -139,7 +139,7 @@ function SignUpForm() {
           />
         </FormGroup>
         <Button type='submit' size='large' variant='contained' fullWidth>
-          SIGN
+          SIGN UP
         </Button>
       </form>
 

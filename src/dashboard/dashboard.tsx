@@ -28,8 +28,6 @@ function Dashboard() {
     navigate('/login');
   }
 
-  // console.log('Dashboard loaded');
-
   const [allContacts, setContacts] = useState<Contacts[]>([]);
   const [allCampaigns, setAllCampaigns] = useState<Campaigns[]>([]);
 
@@ -192,7 +190,7 @@ function Dashboard() {
             <CardContent>
               <Grid container spacing={1}>
                 <Grid item md={4}>
-                  <h1>5</h1>
+                  <h1>{allCampaigns.length}</h1>
                 </Grid>
                 <Grid item md={8}>
                   <h1>Campaigns</h1>

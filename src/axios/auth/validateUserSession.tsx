@@ -6,9 +6,10 @@ export function IsUserLoggedIn() {
   const location = useLocation();
 
   useEffect(() => {
-    // console.log('location.pathname', location.pathname);
     if (!localStorage.getItem('userLoggedIn')) {
-      navigate('/login');
+      location.pathname === '/signup'
+        ? navigate('/signup')
+        : navigate('/login');
     } else if (
       location.pathname === '/login' ||
       location.pathname === '/signup' ||

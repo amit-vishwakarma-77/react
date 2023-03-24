@@ -260,19 +260,19 @@ export default function AddCampaignForm(props: any) {
                             control={<Radio size='small' />}
                             label={
                               <Typography variant='body1'>
-                                Template 1
+                                Energy Bill
                               </Typography>
                             }
                           />
                           <FormControlLabel
                             value='Template2'
                             control={<Radio size='small' />}
-                            label='Template 1'
+                            label='Certificate'
                           />
                           <FormControlLabel
                             value='Template3'
                             control={<Radio size='small' />}
-                            label='Template 3'
+                            label='Party Invitation'
                           />
                         </RadioGroup>
                         <FormHelperText style={{ color: 'red' }}>

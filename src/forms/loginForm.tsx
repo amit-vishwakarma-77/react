@@ -1,44 +1,44 @@
-import { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Checkbox from "@mui/material/Checkbox";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Button from "@mui/material/Button";
+import { useState } from 'react';
+import TextField from '@mui/material/TextField';
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Button from '@mui/material/Button';
 
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 
-import { LOGIN } from "./constants";
-import { FormFields, IFormInput } from "../interfaces";
-import LinkToSwitchForm from "./components/linkToSwitchForm";
+import { LOGIN } from './constants';
+import { FormFields, IFormInput } from '../interfaces';
+import LinkToSwitchForm from './components/linkToSwitchForm';
 
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { validateUserLogin } from "../axios";
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { validateUserLogin } from '../axios';
 
-import { useNavigate } from "react-router-dom";
-import { Alert } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
+import { Alert } from '@mui/material';
 
 const schema = Yup.object().shape({
   email: Yup.string()
-    .label("User Email")
-    .email("Email should be valid")
-    .required("Email is required"),
+    .label('User Email')
+    .email('Email should be valid')
+    .required('Email is required'),
   password: Yup.string()
-    .label("User Password")
+    .label('User Password')
     .min(8)
     .max(10)
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
     )
-    .trim("Space is not valid")
-    .required("Password is required"),
+    .trim('Space is not valid')
+    .required('Password is required'),
 });
 
 function getFormFields(control: any, errors: any) {
   const formFields: FormFields[] = [
-    { name: "email", label: "Email", type: "email" },
-    { name: "password", label: "Password", type: "password" },
+    { name: 'email', label: 'Email', type: 'email' },
+    { name: 'password', label: 'Password', type: 'password' },
   ];
   const inputs = formFields.map((formField: FormFields) => {
     return (
@@ -49,8 +49,8 @@ function getFormFields(control: any, errors: any) {
           render={({ field }) => (
             <TextField
               label={formField.label}
-              variant="outlined"
-              margin="normal"
+              variant='outlined'
+              margin='normal'
               type={formField.type}
               fullWidth
               {...field}
@@ -64,7 +64,7 @@ function getFormFields(control: any, errors: any) {
   return <>{inputs}</>;
 }
 const userNotFoundElement = (
-  <Alert severity="error">Not able to verify user</Alert>
+  <Alert severity='error'>Not able to verify user</Alert>
 );
 function LoginForm() {
   // let userNotFoundMsg = false;
@@ -77,8 +77,8 @@ function LoginForm() {
     formState: { errors },
   } = useForm<IFormInput>({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
     resolver: yupResolver(schema),
   });
@@ -89,16 +89,16 @@ function LoginForm() {
         console.log(response);
         if (response.data.length >= 1) {
           console.log(response);
-          localStorage.setItem("userLoggedIn", response.data[0].email);
+          localStorage.setItem('userLoggedIn', response.data[0].email);
           navigate(`/dashboard`);
         } else {
-          throw new Error("Not able to verify user");
+          throw new Error('Not able to verify user');
         }
       })
       .catch(function (error) {
-        console.log("error", error);
+        console.log('error', error);
         toggleUserNotFound(true);
-        console.log("userNotFoundMsg", userNotFoundMsg);
+        console.log('userNotFoundMsg', userNotFoundMsg);
       });
   };
   const onInvalid = (errors: any) => {
@@ -113,12 +113,12 @@ function LoginForm() {
         <FormGroup>
           <FormControlLabel
             control={<Checkbox defaultChecked />}
-            label="Remember Me"
+            label='Remember Me'
           />
         </FormGroup>
         {userNotFoundMsg && userNotFoundElement}
         <br />
-        <Button type="submit" size="large" variant="contained" fullWidth>
+        <Button type='submit' size='large' variant='contained' fullWidth>
           LOGIN
         </Button>
       </form>

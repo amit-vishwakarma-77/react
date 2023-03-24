@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { LOGIN, SIGN_UP } from "../constants";
+import { Link } from 'react-router-dom';
+import { LOGIN, SIGN_UP } from '../constants';
 
 const toSignUp = (
   <p>
@@ -13,6 +13,7 @@ const toLogin = (
 );
 
 function LinkToSwitchForm(props: any) {
+  console.log(props.formType);
   const formToRender = props.formType === LOGIN ? toSignUp : toLogin;
   return formToRender;
 }
