@@ -25,13 +25,6 @@ const schema = Yup.object().shape({
     .required('Email is required'),
   password: Yup.string()
     .label('User Password')
-    .min(8)
-    .max(10)
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-      'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
-    )
-    .trim('Space is not valid')
     .required('Password is required'),
 });
 
@@ -64,10 +57,9 @@ function getFormFields(control: any, errors: any) {
   return <>{inputs}</>;
 }
 const userNotFoundElement = (
-  <Alert severity='error'>Not able to verify user</Alert>
+  <Alert severity='error'>Please enter correct Email and Password</Alert>
 );
 function LoginForm() {
-  // let userNotFoundMsg = false;
   let [userNotFoundMsg, toggleUserNotFound] = useState(false);
   const navigate = useNavigate();
 
@@ -89,7 +81,7 @@ function LoginForm() {
         console.log(response);
         if (response.data.length >= 1) {
           console.log(response);
-          localStorage.setItem('userLoggedIn', response.data[0].email);
+          localStorage.setItem('userLoggedIn', response.data[0].first_name);
           navigate(`/dashboard`);
         } else {
           throw new Error('Not able to verify user');

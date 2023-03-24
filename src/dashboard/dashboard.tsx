@@ -140,7 +140,7 @@ function Dashboard() {
           Email Champion
         </Typography>
         <Typography variant='h6'>
-          Hello Amit
+          Hello {localStorage.getItem('userLoggedIn')?.toLocaleUpperCase()}
           <Button onClick={logOut}>
             <LogoutIcon />
           </Button>
