@@ -125,7 +125,6 @@ export default function UpdateContactDetailsModal(props: any) {
                 </Button>
               </div>
             </form>
-            {/* {errors[formField.name] && <p>{errors[formField.name].message}</p>} */}
           </Box>
         </Fade>
       </Modal>

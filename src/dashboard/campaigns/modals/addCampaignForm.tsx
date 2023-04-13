@@ -16,14 +16,14 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import { Campaign, CampaignForm, Contacts } from '../../../interfaces';
+import { CampaignForm, Contacts } from '../../../interfaces';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   campaignFormDefaultValues,
   translateCampaignFormValues,
 } from '../../../helper/campaignFormHelper';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 const schema = yup.object().shape({
   name: yup.string().required('Name is required.'),
@@ -67,7 +67,6 @@ export default function AddCampaignForm(props: any) {
   let selectedCampaignData: any;
 
   const handleClose = () => props.state.setOpen(false);
-  const updateCampaign = props.updateCampaign;
 
   const {
     control,
@@ -105,7 +104,6 @@ export default function AddCampaignForm(props: any) {
   }, [selectedCampaign]);
   const onSubmit: SubmitHandler<CampaignForm> = (data) => {
     const campaign = translateCampaignFormValues(data);
-    // console.log(campaign);
     props.updateCampaign(selectedCampaign, campaign);
     reset(campaignFormDefaultValues);
     handleClose();

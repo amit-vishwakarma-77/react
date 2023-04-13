@@ -1,0 +1,6 @@
+projectKey=react-with-typescript
+serverUrl=http://localhost:9000
+serverVersion=10.0.0.68432
+dashboardUrl=http://localhost:9000/dashboard?id=react-with-typescript
+ceTaskId=AYd5YxlvsTdH5n_L7ODS
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYd5YxlvsTdH5n_L7ODS

@@ -32,7 +32,6 @@ function Contacts() {
     setModalType(contactsModalType.update);
     setOpen(true);
   };
-  // const handleClose = () => setOpen(false);
   const { allContacts, updateContact, deleteContact } = useContacts();
   const deleteContactClicked = (user: interfaceContact) => {
     setDeleteModalOpen(true);

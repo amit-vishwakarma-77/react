@@ -109,8 +109,6 @@ function SignUpForm() {
       })
       .catch((error) => {
         toggleUserExistsTost(true);
-        // setTimeout(() => toggleUserExistsTost(true), 3000);
-        console.log(error);
       });
   };
   const onInvalid = (errors: any) => console.error(errors);
