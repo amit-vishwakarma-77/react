@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import './App.css';
 import UserForm from './forms/form';
 import SignUpForm from './forms/signUpForm';
 import LoginForm from './forms/loginForm';
